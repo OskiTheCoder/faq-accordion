@@ -171,7 +171,7 @@ h3.open {
 @media (max-width: 525px) {
   .container {
     margin: 50px 0 20px 0;
-    min-width: 325px;
+    min-width: 350px;
   }
 
   .faq-box {
