@@ -109,7 +109,6 @@ h1 {
 .faq-answer.open {
   display: block;
   width: 95%;
-  transition: height 2000ms ease-in-out;
 }
 
 p {
@@ -171,7 +170,7 @@ h3.open {
 @media (max-width: 525px) {
   .container {
     margin: 50px 0 20px 0;
-    min-width: 350px;
+    min-width: 360px;
   }
 
   .faq-box {
