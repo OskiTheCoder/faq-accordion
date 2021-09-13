@@ -1,31 +1,38 @@
-// simple solution to open and close accordion
+// simple solution to open and close accordion using vanilla js
+let openElements = [];
 
-let openh3Ele = null;
-let openArrowImgEle = null;
-let openFaqAnswer = null;
+const getFaqQuestionElement = (ele) => {
+  if (ele.classList.contains("faq-question")) {
+    return ele;
+  }
+  return ele.parentElement;
+};
+
+const toggleOpenStyles = (faqQuestionEle) => {
+  Array.from(faqQuestionEle.children).forEach((childEle) => {
+    childEle.classList.add("open");
+    openElements.push(childEle);
+  });
+  //show answer element
+  faqQuestionEle.nextElementSibling.classList.add("open");
+  openElements.push(faqQuestionEle.nextElementSibling);
+};
 
 const handleQuestionClick = (event) => {
-  const h3Ele = event.target;
-  if (openh3Ele && openArrowImgEle && openFaqAnswer) {
+  const faqQuestionEle = getFaqQuestionElement(event.target);
+  if (openElements && openElements.length > 0) {
     let returnAfterReset = false;
     // already open?
-    if (h3Ele.classList.contains("open")) {
+    if (faqQuestionEle.nextElementSibling.classList.contains("open")) {
       returnAfterReset = true;
     }
-    openh3Ele.classList = "";
-    openArrowImgEle.classList = "arrow-down";
-    openFaqAnswer.classList = "faq-answer";
+    openElements.forEach((openElement) => {
+      openElement.classList.remove("open");
+    });
     if (returnAfterReset) return;
   }
-  // apply styles
-  h3Ele.classList = "open";
-  const arrowImgEle = h3Ele.nextElementSibling;
-  arrowImgEle.classList = "arrow-down open";
-  const faqAnswer = h3Ele.parentElement.nextElementSibling;
-  faqAnswer.classList = "faq-answer open";
-  openh3Ele = h3Ele;
-  openArrowImgEle = arrowImgEle;
-  openFaqAnswer = faqAnswer;
+  //apply styles
+  toggleOpenStyles(faqQuestionEle);
 };
 
 const faqQuestions = document.querySelectorAll(".faq-question");
